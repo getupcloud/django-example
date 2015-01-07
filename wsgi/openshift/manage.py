@@ -4,7 +4,7 @@ import sys
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
-    sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'wsgi'))
+    sys.path.append(os.path.join(os.environ.get('OPENSHIFT_REPO_DIR', os.path.dirname(os.path.dirname(__file__))), 'wsgi'))
 
     from django.core.management import execute_from_command_line
 
