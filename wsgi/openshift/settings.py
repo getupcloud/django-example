@@ -85,8 +85,6 @@ WSGI_APPLICATION = 'openshift.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 if ON_OPENSHIFT:
-    # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
-    # with rhc cartridge add (see /README in this git repo)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -95,8 +93,22 @@ if ON_OPENSHIFT:
             'PASSWORD': '',                  # Not used with sqlite3.
             'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
             'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-        }
+        },
     }
+
+    # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
+    # with rhc cartridge add (see /README in this git repo)
+    if os.environ.has_key('OPENSHIFT_MYSQL_DB_HOST'):
+        DATABASES = {
+            'default': {
+                'ENGINE':   "django.db.backends.mysql",
+                'NAME':     os.environ['OPENSHIFT_APP_NAME'],
+                'USER':     os.environ['OPENSHIFT_MYSQL_DB_USERNAME'],
+                'PASSWORD': os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],
+                'HOST':     os.environ['OPENSHIFT_MYSQL_DB_HOST'],
+                'PORT':     os.environ['OPENSHIFT_MYSQL_DB_PORT'],
+            },
+        }
 else:
     DATABASES = {
         'default': {
