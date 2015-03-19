@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djcelery',
     'openshift',
 )
 
@@ -142,3 +143,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(PROJECT_DIR, '..', 'static')
+
+# Celery config
+if 'OPENSHIFT_RABBITMQ_URI' in os.environ:
+    import djcelery
+
+    djcelery.setup_loader()
+
+    BROKER_URL                 = os.environ['OPENSHIFT_RABBITMQ_URI']
+    CELERY_RESULT_BACKEND      = 'djcelery.backends.database:DatabaseBackend'
+    CELERY_TASK_RESULT_EXPIRES = 300
+    #CELERY_ACCEPT_CONTENT      = [ 'json' ]
+    #CELERY_TASK_SERIALIZER     = 'json'

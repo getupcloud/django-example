@@ -9,4 +9,6 @@ urlpatterns = patterns('',
     # url(r'^openshift/', include('openshift.foo.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'celery/(?P<taskname>.*)/', 'openshift.views.task')
 )

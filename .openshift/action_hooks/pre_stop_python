@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd $OPENSHIFT_REPO_DIR/wsgi/
+
+PID_FILE=$OPENSHIFT_DATA_DIR/celery-worker.pid
+if [ -f $PID_FILE ]; then
+   PID=$(<$PID_FILE)
+   if [ -n "$PID" ]; then
+      kill -INT $PID
+      rm -f $PID_FILE
+      echo Stopped Celery Worker
+   fi
+fi
