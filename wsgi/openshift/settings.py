@@ -45,10 +45,8 @@ if ON_OPENSHIFT:
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = use_keys['SECRET_KEY']
 
-if ON_OPENSHIFT:
-    ALLOWED_HOSTS = [ os.environ['OPENSHIFT_APP_DNS'] ]
-else:
-    ALLOWED_HOSTS = [ '*' ]
+# Allow from * because openshift's proxy already validates the Host header
+ALLOWED_HOSTS = [ '*' ]
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
