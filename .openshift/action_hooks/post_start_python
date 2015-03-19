@@ -5,8 +5,7 @@ if [ -n "$OPENSHIFT_RABBITMQ_URI" ]; then
    cd $OPENSHIFT_REPO_DIR/wsgi/
 
    PID_FILE=$OPENSHIFT_DATA_DIR/celery-worker.pid
-   LOG_FILE=$OPENSHIFT_LOG_DIR/celery-worker.log
 
-   celery worker --app=openshift.celery:app --detach --pidfile=$PID_FILE --logfile=$LOG_FILE
+   celery worker --app=openshift.celery:app --detach --pidfile=$PID_FILE |& /usr/bin/logshifter -tag celery
    echo Started Celery Worker
 fi
