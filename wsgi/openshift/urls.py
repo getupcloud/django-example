@@ -10,5 +10,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'celery/(?P<taskname>.*)/', 'openshift.views.task')
+    ### UNCOMENT BELOW TO ACTIVATE CELERY
+    #url(r'celery/(?P<taskname>.*)/', 'openshift.views.task')
 )

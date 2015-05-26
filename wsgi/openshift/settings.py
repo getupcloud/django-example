@@ -64,7 +64,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djcelery',
+    ### UNCOMENT BELOW TO ACTIVATE CELERY
+    #'djcelery',
     'openshift',
 )
 

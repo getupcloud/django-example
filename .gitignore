@@ -5,3 +5,6 @@
 *~
 .project
 .pydevproject
+virtenv
+dist
+*.egg-info
