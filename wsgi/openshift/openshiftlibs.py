@@ -10,7 +10,7 @@ def get_openshift_secret_token():
     if token is not None:
         return token
     elif (name is not None and uuid is not None):
-        return hashlib.sha256(name + '-' + uuid).hexdigest()
+        return hashlib.sha256(bytes(bytearray(name + '-' + uuid, 'utf-8'))).hexdigest()
     return None
 
 # Loop through all provided variables and generate secure versions
@@ -31,9 +31,10 @@ def openshift_secure(default_keys, secure_function = 'make_secure_key'):
 
     if my_token is not None:
         # Loop over each default_key and set the new value
-        for key, value in default_keys.iteritems():
+        for key in default_keys:
+            value = default_keys[key]
             # Create hash out of token and this key's name
-            sha = hashlib.sha256(my_token + '-' + key).hexdigest()
+            sha = hashlib.(bytes(bytearray(my_token + '-' + key, 'utf-8'))).hexdigest()
             # Pass a dictionary so we can add stuff without breaking existing calls
             vals = { 'hash': sha, 'variable': key, 'original': value }
             # Call user specified function or just return hash
