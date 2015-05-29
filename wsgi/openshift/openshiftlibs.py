@@ -34,7 +34,7 @@ def openshift_secure(default_keys, secure_function = 'make_secure_key'):
         for key in default_keys:
             value = default_keys[key]
             # Create hash out of token and this key's name
-            sha = hashlib.(bytes(bytearray(my_token + '-' + key, 'utf-8'))).hexdigest()
+            sha = hashlib.sha256(bytes(bytearray(my_token + '-' + key, 'utf-8'))).hexdigest()
             # Pass a dictionary so we can add stuff without breaking existing calls
             vals = { 'hash': sha, 'variable': key, 'original': value }
             # Call user specified function or just return hash
