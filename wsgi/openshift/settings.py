@@ -98,9 +98,10 @@ if ON_OPENSHIFT:
     # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
     # with rhc cartridge add (see /README in this git repo)
     if 'OPENSHIFT_MYSQL_DB_HOST' in os.environ:
+        mysql_engine = "mysql.connector.django" if sys.version_info.major == 3 else "django.db.backends.mysql"
         DATABASES = {
             'default': {
-                'ENGINE':   "django.db.backends.mysql",
+                'ENGINE':   mysql_engine,
                 'NAME':     os.environ['OPENSHIFT_APP_NAME'],
                 'USER':     os.environ['OPENSHIFT_MYSQL_DB_USERNAME'],
                 'PASSWORD': os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],
