@@ -14,9 +14,7 @@ import imp, os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # a setting to determine whether we are running on OpenShift
-ON_OPENSHIFT = False
-if os.environ.has_key('OPENSHIFT_REPO_DIR'):
-    ON_OPENSHIFT = True
+ON_OPENSHIFT = 'OPENSHIFT_REPO_DIR' in os.environ
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
 if ON_OPENSHIFT:
@@ -99,7 +97,7 @@ if ON_OPENSHIFT:
 
     # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
     # with rhc cartridge add (see /README in this git repo)
-    if os.environ.has_key('OPENSHIFT_MYSQL_DB_HOST'):
+    if 'OPENSHIFT_MYSQL_DB_HOST' in os.environ:
         DATABASES = {
             'default': {
                 'ENGINE':   "django.db.backends.mysql",
