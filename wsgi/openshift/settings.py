@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import imp, os
+import imp, os, sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # a setting to determine whether we are running on OpenShift
