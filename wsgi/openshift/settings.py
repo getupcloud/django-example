@@ -136,11 +136,21 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
+# https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(PROJECT_DIR, '..', 'static')
+
+# Media files, uploaded by users
+# https://docs.djangoproject.com/en/1.7/ref/settings/#media-root
+# https://docs.djangoproject.com/en/1.7/howto/static-files/#serving-files-uploaded-by-a-user-during-development
+
+# OPENSHIFT_DATA_DIR is a gear-local storage. For scalable apps some centralized storage
+# as AWS S3 or a Database should be used.
+MEDIA_ROOT = os.environ['OPENSHIFT_DATA_DIR'] + '/media/' 
+
+MEDIA_URL = '/media/'
 
 # Celery config
 if 'OPENSHIFT_RABBITMQ_URI' in os.environ:
